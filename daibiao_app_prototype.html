@@ -1,0 +1,2369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人民代表大会APP - 完整原型</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'party-red': '#DC2626'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50">
+    <!-- 顶部导航栏 -->
+    <header class="bg-party-red text-white shadow-lg fixed top-0 w-full z-50">
+        <div class="px-4 py-3">
+            <h1 class="text-lg font-bold text-center mb-3">
+                <i class="fas fa-landmark mr-2"></i>
+                人民代表大会履职平台
+            </h1>
+            <!-- 滚动导航 -->
+            <div class="overflow-x-auto">
+                <nav class="flex space-x-4 min-w-max">
+                    <button onclick="showPage('training')"
+                        class="nav-btn bg-white bg-opacity-20 px-3 py-2 rounded-lg text-sm whitespace-nowrap hover:bg-opacity-30 transition-all">
+                        <i class="fas fa-graduation-cap mr-1"></i>代表履职培训
+                    </button>
+                    <button onclick="showPage('liaison')"
+                        class="nav-btn px-3 py-2 rounded-lg text-sm whitespace-nowrap hover:bg-white hover:bg-opacity-20 transition-all">
+                        <i class="fas fa-users mr-1"></i>专业领域联络点
+                    </button>
+                    <button onclick="showPage('mechanisms')"
+                        class="nav-btn px-3 py-2 rounded-lg text-sm whitespace-nowrap hover:bg-white hover:bg-opacity-20 transition-all">
+                        <i class="fas fa-cogs mr-1"></i>四个机制
+                    </button>
+                    <button onclick="showPage('enterprise')"
+                        class="nav-btn px-3 py-2 rounded-lg text-sm whitespace-nowrap hover:bg-white hover:bg-opacity-20 transition-all">
+                        <i class="fas fa-building mr-1"></i>强企惠民行动
+                    </button>
+                    <button onclick="showPage('project')"
+                        class="nav-btn px-3 py-2 rounded-lg text-sm whitespace-nowrap hover:bg-white hover:bg-opacity-20 transition-all">
+                        <i class="fas fa-project-diagram mr-1"></i>项目建设行动
+                    </button>
+                    <!-- 将这些按钮的onclick事件修改为 -->
+                    <button onclick="showPage('proposal-action')"
+                        class="nav-btn px-3 py-2 rounded-lg text-sm whitespace-nowrap hover:bg-white hover:bg-opacity-20 transition-all">
+                        <i class="fas fa-file-alt mr-1"></i>建议办理行动
+                    </button>
+                    <button onclick="showPage('business-action')"
+                        class="nav-btn px-3 py-2 rounded-lg text-sm whitespace-nowrap hover:bg-white hover:bg-opacity-20 transition-all">
+                        <i class="fas fa-handshake mr-1"></i>营商环境行动
+                    </button>
+                    <button onclick="showPage('visit-action')"
+                        class="nav-btn px-3 py-2 rounded-lg text-sm whitespace-nowrap hover:bg-white hover:bg-opacity-20 transition-all">
+                        <i class="fas fa-walking mr-1"></i>遍访代表行动
+                    </button>
+                    <button onclick="showPage('results')"
+                        class="nav-btn px-3 py-2 rounded-lg text-sm whitespace-nowrap hover:bg-white hover:bg-opacity-20 transition-all">
+                        <i class="fas fa-trophy mr-1"></i>六个一批成果
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区域 -->
+    <main class="pt-32 pb-20 px-4 fixed top-0 bottom-16 left-0 right-0 overflow-y-auto">
+        <!-- 代表履职培训页面 -->
+        <div id="training" class="page">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-graduation-cap text-party-red mr-2"></i>
+                    代表履职培训
+                </h2>
+            </div>
+
+            <!-- 搜索区域 -->
+            <div class="mb-6 bg-white rounded-lg shadow-md p-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" placeholder="搜索培训主题或内容"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-calendar text-gray-400"></i>
+                        </div>
+                        <input type="date"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 培训列表 -->
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showTrainingDetail(1)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">新时代代表人 Rights Training</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-gray-600">培训时间：</span>
+                            <span class="text-gray-800">2024年3月15-17日</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">培训人员：</span>
+                            <span class="text-gray-800">张三、李四等15人</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">培训情况：</span>
+                        <span class="text-gray-800">全员参与，效果良好</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showTrainingDetail(2)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">法律法规专题培训</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">进行中</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-gray-600">培训时间：</span>
+                            <span class="text-gray-800">2024年4月10-12日</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">培训人员：</span>
+                            <span class="text-gray-800">王五、赵六等12人</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">培训情况：</span>
+                        <span class="text-gray-800">正在进行中</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 培训详情页面 -->
+        <div id="training-detail" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('training')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">培训详情</h2>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-start mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800">新时代代表人 Rights Training</h3>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">培训主题</label>
+                            <p class="text-gray-800">新时代代表人 Rights Training</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">培训时间</label>
+                            <p class="text-gray-800">2024年3月15-17日</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">培训人员</label>
+                        <p class="text-gray-800">张三（市代表人）、李四（区代表人）、王五（县代表人）等15人</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">培训情况</label>
+                        <p class="text-gray-800">本次培训为期3天，采用理论学习与实践相结合的方式，全体代表积极参与，培训效果良好。主要内容包括：人大制度理论、履职方法技巧、案例分析等。
+                        </p>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">培训照片</label>
+                        <div class="grid grid-cols-2 gap-4 mt-2">
+                            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=300&h=200&fit=crop"
+                                alt="培训现场" class="rounded-lg">
+                            <img src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=300&h=200&fit=crop"
+                                alt="培训讨论" class="rounded-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 专业领域代表联络点页面 -->
+        <div id="liaison" class="page hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-users text-party-red mr-2"></i>
+                    专业领域代表联络点
+                </h2>
+            </div>
+
+            <!-- 搜索区域 -->
+            <div class="mb-6 bg-white rounded-lg shadow-md p-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" placeholder="搜索联络点名称"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-calendar text-gray-400"></i>
+                        </div>
+                        <input type="date"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联络点列表 -->
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showLiaisonDetail(1)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">教育领域代表联络点</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">活跃</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-gray-600">成立时间：</span>
+                            <span class="text-gray-800">2024年1月15日</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">参与代表：</span>
+                            <span class="text-gray-800">陈老师（校长）、刘主任等</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">开展活动情况：</span>
+                        <span class="text-gray-800">已开展教育调研3次，提出建议5条</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showLiaisonDetail(2)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">医疗卫生代表联络点</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">籌建中</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-gray-600">成立时间：</span>
+                            <span class="text-gray-800">2024年3月1日</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">参与代表：</span>
+                            <span class="text-gray-800">李医生（院长）、张护士长等</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">开展活动情况：</span>
+                        <span class="text-gray-800">正在筹备首次活动</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 四个机制页面 -->
+        <div id="mechanisms" class="page hidden">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-cogs text-party-red mr-2"></i>
+                    探索完善四个机制
+                </h2>
+
+                <!-- 四个机制按钮 -->
+                <div class="grid grid-cols-1 gap-4">
+                    <button onclick="showPage('mechanism1')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">专门委员会与对口联系部门的会商机制</h3>
+                                <p class="text-gray-600">建立定期会商制度，加强沟通协调</p>
+                            </div>
+                            <i class="fas fa-handshake text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('mechanism2')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">专门委员会与专业代表的联动机制</h3>
+                                <p class="text-gray-600">发挥专业代表作用，提升履职效能</p>
+                            </div>
+                            <i class="fas fa-users-cog text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('mechanism3')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">专业代表深耕行业领域的履职机制</h3>
+                                <p class="text-gray-600">深入行业一线，发挥专业优势</p>
+                            </div>
+                            <i class="fas fa-seedling text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('mechanism4')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">被监督部门与代表联系机制</h3>
+                                <p class="text-gray-600">建立常态化联系，强化监督效果</p>
+                            </div>
+                            <i class="fas fa-eye text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 机制1：专门委员会与对口联系部门的会商机制 -->
+        <div id="mechanism1" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('mechanisms')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">会商机制</h2>
+            </div>
+
+            <!-- 搜索区域 -->
+            <div class="mb-6 bg-white rounded-lg shadow-md p-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" placeholder="搜索专委会或部门"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-calendar text-gray-400"></i>
+                        </div>
+                        <input type="date"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 会商记录列表 -->
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showMechanism1Detail(1)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">教科文卫委与教育局会商</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-gray-600">专委会名称：</span>
+                            <span class="text-gray-800">教科文卫委员会</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">联系部门：</span>
+                            <span class="text-gray-800">市教育局</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">会商时间：</span>
+                            <span class="text-gray-800">2024年3月20日</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">填报单位：</span>
+                            <span class="text-gray-800">市人大教科文卫委</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">会商内容：</span>
+                        <span class="text-gray-800">就教育改革发展重点工作进行深入交流</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 机制2：专门委员会与专业代表的联动机制 -->
+        <div id="mechanism2" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('mechanisms')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">联动机制</h2>
+            </div>
+
+            <!-- 搜索区域 -->
+            <div class="mb-6 bg-white rounded-lg shadow-md p-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" placeholder="搜索专委会或代表"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-calendar text-gray-400"></i>
+                        </div>
+                        <input type="date"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联动记录列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">财政经济委员会与金融专业代表联动</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">进行中</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-gray-600">专委会名称：</span>
+                            <span class="text-gray-800">财政经济委员会</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">联系代表：</span>
+                            <span class="text-gray-800">王行长（银行业）</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">联系时间：</span>
+                            <span class="text-gray-800">2024年4月5日</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">活动内容：</span>
+                        <span class="text-gray-800">金融支持实体经济发展专题调研</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 机制3：专业代表深耕行业领域的履职机制 -->
+        <div id="mechanism3" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('mechanisms')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">履职机制</h2>
+            </div>
+
+            <!-- 搜索区域 -->
+            <div class="mb-6 bg-white rounded-lg shadow-md p-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" placeholder="搜索代表姓名或职务"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-calendar text-gray-400"></i>
+                        </div>
+                        <input type="date"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 代表列表 -->
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showMechanism3Detail(1)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">李医生</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">医疗卫生</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-gray-600">代表姓名：</span>
+                            <span class="text-gray-800">李医生</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">职务：</span>
+                            <span class="text-gray-800">市人民医院院长</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 代表履职详情页面 -->
+        <div id="mechanism3-detail" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('mechanism3')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">代表履职详情</h2>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-start mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800">李医生履职档案</h3>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">代表姓名</label>
+                            <p class="text-gray-800">李医生</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">职务</label>
+                            <p class="text-gray-800">市人民医院院长</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">履职事迹</label>
+                        <p class="text-gray-800 mb-4">作为医疗卫生领域的专业代表，李医生深入一线，积极参与医疗改革调研，提出多项建设性建议，为推动医疗卫生事业发展做出了重要贡献。</p>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=300&h=200&fit=crop"
+                                alt="履职照片1" class="rounded-lg">
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=300&h=200&fit=crop"
+                                alt="履职照片2" class="rounded-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 机制4：被监督部门与代表联系机制 -->
+        <div id="mechanism4" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('mechanisms')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">监督联系机制</h2>
+            </div>
+
+            <!-- 搜索区域 -->
+            <div class="mb-6 bg-white rounded-lg shadow-md p-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" placeholder="搜索代表或部门"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-calendar text-gray-400"></i>
+                        </div>
+                        <input type="date"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-party-red focus:border-party-red">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 联系记录列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">张代表与环保局联系</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">定期联系</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-gray-600">代表姓名：</span>
+                            <span class="text-gray-800">张代表（环保专家）</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">被监督部门：</span>
+                            <span class="text-gray-800">市环保局</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">联系时间：</span>
+                            <span class="text-gray-800">2024年4月1日</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">联系内容：</span>
+                        <span class="text-gray-800">环境保护工作进展情况交流</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 强企惠民行动页面 -->
+        <div id="enterprise" class="page hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-building text-party-red mr-2"></i>
+                    强企惠民代表争先行动
+                </h2>
+            </div>
+
+            <!-- 企业列表 -->
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showEnterpriseDetail(1)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">标题1</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">进行中</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">代表姓名、职务：</span>
+                        <span class="text-gray-800">在此显示代代表姓名、职务</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">代表典型事迹：</span>
+                        <span class="text-gray-800">在此显示代表典型事迹内容</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showEnterpriseDetail(1)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">标题2</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">进行中</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">代表姓名、职务：</span>
+                        <span class="text-gray-800">在此显示代代表姓名、职务</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">代表典型事迹：</span>
+                        <span class="text-gray-800">在此显示代表典型事迹内容</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showEnterpriseDetail(1)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">标题3</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">进行中</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">代表姓名、职务：</span>
+                        <span class="text-gray-800">在此显示代代表姓名、职务</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">代表典型事迹：</span>
+                        <span class="text-gray-800">在此显示代表典型事迹内容</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目建设行动页面 -->
+        <div id="project" class="page hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-project-diagram text-party-red mr-2"></i>
+                    项目建设代表助力行动
+                </h2>
+            </div>
+
+            <!-- 移除搜索区域 -->
+
+            <!-- 项目列表 -->
+            <div class="space-y-4">
+                <!-- 改进项目列表卡片的视觉层次 -->
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">填报单位</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">进行中</span>
+                    </div>
+
+                    <!-- 增加卡片内容的视觉分隔 -->
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 代表信息部分 -->
+                        <div class="pb-3">
+                            <span class="text-gray-700 font-medium">代表姓名、职务：</span>
+                            <span class="text-gray-800 ml-2">在此填写代表姓名、职务</span>
+                        </div>
+
+                        <!-- 项目进展情况部分 -->
+                        <div class="pt-3">
+                            <h4 class="text-base font-medium text-party-red mb-2">代表项目进展情况</h4>
+                            <div class="bg-gray-50 p-3 rounded-md space-y-2">
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">项目名称：</span>
+                                    <span class="text-gray-800 col-span-3">示例项目名称</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">项目法人单位：</span>
+                                    <span class="text-gray-800 col-span-3">示例法人单位</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">建设规模及内容：</span>
+                                    <span class="text-gray-800 col-span-3">示例建设规模和内容描述</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">存在问题：</span>
+                                    <span class="text-gray-800 col-span-3">示例问题描述</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">解决情况：</span>
+                                    <span class="text-gray-800 col-span-3">示例解决情况描述</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 招商线索部分 -->
+                        <div class="pt-3">
+                            <h4 class="text-base font-medium text-party-red mb-2">招商线索</h4>
+                            <div class="bg-gray-50 p-3 rounded-md space-y-2">
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">项目名称：</span>
+                                    <span class="text-gray-800 col-span-3">示例招商项目名称</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">拟投资主体：</span>
+                                    <span class="text-gray-800 col-span-3">示例投资主体</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">投资资金及内容：</span>
+                                    <span class="text-gray-800 col-span-3">示例投资资金和建设内容</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">进展情况：</span>
+                                    <span class="text-gray-800 col-span-3">示例进展情况描述</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 改进项目列表卡片的视觉层次 -->
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">填报单位</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">进行中</span>
+                    </div>
+
+                    <!-- 增加卡片内容的视觉分隔 -->
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 代表信息部分 -->
+                        <div class="pb-3">
+                            <span class="text-gray-700 font-medium">代表姓名、职务：</span>
+                            <span class="text-gray-800 ml-2">在此填写代表姓名、职务</span>
+                        </div>
+
+                        <!-- 项目进展情况部分 -->
+                        <div class="pt-3">
+                            <h4 class="text-base font-medium text-party-red mb-2">代表项目进展情况</h4>
+                            <div class="bg-gray-50 p-3 rounded-md space-y-2">
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">项目名称：</span>
+                                    <span class="text-gray-800 col-span-3">示例项目名称</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">项目法人单位：</span>
+                                    <span class="text-gray-800 col-span-3">示例法人单位</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">建设规模及内容：</span>
+                                    <span class="text-gray-800 col-span-3">示例建设规模和内容描述</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">存在问题：</span>
+                                    <span class="text-gray-800 col-span-3">示例问题描述</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">解决情况：</span>
+                                    <span class="text-gray-800 col-span-3">示例解决情况描述</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 招商线索部分 -->
+                        <div class="pt-3">
+                            <h4 class="text-base font-medium text-party-red mb-2">招商线索</h4>
+                            <div class="bg-gray-50 p-3 rounded-md space-y-2">
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">项目名称：</span>
+                                    <span class="text-gray-800 col-span-3">示例招商项目名称</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">拟投资主体：</span>
+                                    <span class="text-gray-800 col-span-3">示例投资主体</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">投资资金及内容：</span>
+                                    <span class="text-gray-800 col-span-3">示例投资资金和建设内容</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">进展情况：</span>
+                                    <span class="text-gray-800 col-span-3">示例进展情况描述</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 改进项目列表卡片的视觉层次 -->
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">填报单位</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">进行中</span>
+                    </div>
+
+                    <!-- 增加卡片内容的视觉分隔 -->
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 代表信息部分 -->
+                        <div class="pb-3">
+                            <span class="text-gray-700 font-medium">代表姓名、职务：</span>
+                            <span class="text-gray-800 ml-2">在此填写代表姓名、职务</span>
+                        </div>
+
+                        <!-- 项目进展情况部分 -->
+                        <div class="pt-3">
+                            <h4 class="text-base font-medium text-party-red mb-2">代表项目进展情况</h4>
+                            <div class="bg-gray-50 p-3 rounded-md space-y-2">
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">项目名称：</span>
+                                    <span class="text-gray-800 col-span-3">示例项目名称</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">项目法人单位：</span>
+                                    <span class="text-gray-800 col-span-3">示例法人单位</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">建设规模及内容：</span>
+                                    <span class="text-gray-800 col-span-3">示例建设规模和内容描述</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">存在问题：</span>
+                                    <span class="text-gray-800 col-span-3">示例问题描述</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">解决情况：</span>
+                                    <span class="text-gray-800 col-span-3">示例解决情况描述</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 招商线索部分 -->
+                        <div class="pt-3">
+                            <h4 class="text-base font-medium text-party-red mb-2">招商线索</h4>
+                            <div class="bg-gray-50 p-3 rounded-md space-y-2">
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">项目名称：</span>
+                                    <span class="text-gray-800 col-span-3">示例招商项目名称</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">拟投资主体：</span>
+                                    <span class="text-gray-800 col-span-3">示例投资主体</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">投资资金及内容：</span>
+                                    <span class="text-gray-800 col-span-3">示例投资资金和建设内容</span>
+                                </div>
+                                <div class="grid grid-cols-4 gap-2">
+                                    <span class="text-gray-600 font-medium col-span-1">进展情况：</span>
+                                    <span class="text-gray-800 col-span-3">示例进展情况描述</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- 建议办理代表助推行动页面 -->
+        <div id="proposal-action" class="page hidden">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-file-alt text-party-red mr-2"></i>
+                    建议办理代表助推行动
+                </h2>
+
+                <!-- 四个小点按钮 -->
+                <div class="grid grid-cols-1 gap-4">
+                    <button onclick="showPage('proposal-action1')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">开展调研视察</h3>
+                                <p class="text-gray-600">开展调研视察，推动问题解决</p>
+                            </div>
+                            <i class="fas fa-paper-plane text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('proposal-action2')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">督办重点建议</h3>
+                                <p class="text-gray-600">督办重点建议，监督落实情况</p>
+                            </div>
+                            <i class="fas fa-tasks text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('proposal-action3')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">开展专题询问</h3>
+                                <p class="text-gray-600">开展专题询问，评估满意度</p>
+                            </div>
+                            <i class="fas fa-comment-dots text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('proposal-action4')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">开展联动会商</h3>
+                                <p class="text-gray-600">开展联动会商，析建议类型和办理情况</p>
+                            </div>
+                            <i class="fas fa-chart-pie text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 开展调研视察页面 -->
+        <div id="proposal-action1" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('proposal-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">开展调研视察</h2>
+            </div>
+
+            <!-- 调研视察列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">城市基础设施建设调研</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 基本信息部分 -->
+                        <div class="pb-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">填报单位：</span>
+                                <span class="text-gray-800 col-span-3">市人大常委会城建环资工委</span>
+                            </div>
+
+                        </div>
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">调研/视察主题：</span>
+                                <span class="text-gray-800 col-span-3">城市道路建设与维护</span>
+                            </div>
+                        </div>
+
+                        <!-- 调研内容部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">调研/视察内容：</span>
+                                <span class="text-gray-800 col-span-3">实地查看城市主干道建设情况，了解道路维护管理机制</span>
+                            </div>
+                        </div>
+
+                        <!-- 代表信息部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">邀请代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">王某某（市人大代表、某建筑公司总工程师）、李某某（市人大代表、某社区主任）</span>
+                            </div>
+                        </div>
+
+                        <!-- 建议部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">代表提出建议：</span>
+                                <span class="text-gray-800 col-span-3">1. 加强道路施工质量监管；2. 完善道路维护长效机制；3. 优化城市交通组织</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 督办重点建议页面 -->
+        <div id="proposal-action2" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('proposal-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">督办重点建议</h2>
+            </div>
+
+            <!-- 督办重点建议列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">关于优化营商环境的建议</h3>
+                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">督办中</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 基本信息部分 -->
+                        <div class="pb-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">填报单位：</span>
+                                <span class="text-gray-800 col-span-3">市人大常委会财经委</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">张某某（市人大代表、某企业董事长）</span>
+                            </div>
+                        </div>
+
+                        <!-- 督办建议部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">督办建议：</span>
+                                <span class="text-gray-800 col-span-3">关于进一步优化我市营商环境，提高行政审批效率的建议</span>
+                            </div>
+                        </div>
+
+                        <!-- 承办部门部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">建议承办部门：</span>
+                                <span class="text-gray-800 col-span-3">市政务服务中心、市发改委</span>
+                            </div>
+                        </div>
+
+                        <!-- 督办内容部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">督办内容/建议落实情况：</span>
+                                <span class="text-gray-800 col-span-3">1. 已开展专项调研，形成调研报告；2. 已召开专题会议研究解决方案；3.
+                                    正在制定优化营商环境实施细则</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 开展专题询问页面 -->
+        <div id="proposal-action3" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('proposal-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">开展专题询问</h2>
+            </div>
+
+            <!-- 专题询问列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">教育资源均衡配置专题询问</h3>
+                        <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 基本信息部分 -->
+                        <div class="pb-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">填报单位：</span>
+                                <span class="text-gray-800 col-span-3">市人大常委会教科文卫委</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">专题询问主题：</span>
+                                <span class="text-gray-800 col-span-3">义务教育阶段教育资源均衡配置情况</span>
+                            </div>
+                        </div>
+
+                        <!-- 代表信息部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">邀请代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">赵某某（市人大代表、某学校校长）、钱某某（市人大代表、某教育机构负责人）</span>
+                            </div>
+                        </div>
+
+                        <!-- 询问情况部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">专题询问情况：</span>
+                                <span class="text-gray-800 col-span-3">1. 询问了教育资源配置现状；2. 询问了解决教育不均衡的措施；3. 询问了教师队伍建设情况；4.
+                                    形成了专题询问报告，提出了5项具体建议</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 开展联动会商页面 -->
+        <div id="proposal-action4" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('proposal-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">开展联动会商</h2>
+            </div>
+
+            <!-- 联动会商列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">民生类建议办理联动会商</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 基本信息部分 -->
+                        <div class="pb-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">填报单位：</span>
+                                <span class="text-gray-800 col-span-3">市人大常委会办公室</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">会商部门：</span>
+                                <span class="text-gray-800 col-span-3">市民政局、市住建局、市卫健委</span>
+                            </div>
+                        </div>
+
+                        <!-- 会商时间部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">会商时间：</span>
+                                <span class="text-gray-800 col-span-3">2024年4月15日</span>
+                            </div>
+                        </div>
+
+                        <!-- 会商内容部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">会商内容：</span>
+                                <span class="text-gray-800 col-span-3">1. 分析民生类建议办理情况；2. 研究跨部门协同解决机制；3.
+                                    制定重点民生建议联合办理方案；4. 明确时间表和责任人</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+        <!-- 营商环境代表聚力行动页面 -->
+        <div id="business-action" class="page hidden">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-briefcase text-party-red mr-2"></i>
+                    营商环境代表聚力行动
+                </h2>
+
+                <!-- 四个小点按钮 -->
+                <div class="grid grid-cols-1 gap-4">
+                    <button onclick="showPage('business-action1')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">开展述法评议活动</h3>
+                                <p class="text-gray-600">记录述法评议活动开展情况</p>
+                            </div>
+                            <i class="fas fa-gavel text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('business-action2')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">召开"代表助企兴企"约请会</h3>
+                                <p class="text-gray-600">记录代表助企兴企约请会情况</p>
+                            </div>
+                            <i class="fas fa-handshake text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('business-action3')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">市县联动、开展"人大+"执法检查活动</h3>
+                                <p class="text-gray-600">记录人大+执法检查活动情况</p>
+                            </div>
+                            <i class="fas fa-balance-scale text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('business-action4')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">宣传推广</h3>
+                                <p class="text-gray-600">记录代表典型事迹</p>
+                            </div>
+                            <i class="fas fa-bullhorn text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 开展述法评议活动页面 -->
+        <div id="business-action1" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('business-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">开展述法评议活动</h2>
+            </div>
+
+            <!-- 述法评议活动列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">市场监管条例实施情况述法评议</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 基本信息部分 -->
+                        <div class="pb-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">填报单位：</span>
+                                <span class="text-gray-800 col-span-3">市人大常委会法工委</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">述法评议主题：</span>
+                                <span class="text-gray-800 col-span-3">市场监管条例实施情况</span>
+                            </div>
+                        </div>
+
+                        <!-- 时间和部门信息 -->
+                        <div class="py-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">时间：</span>
+                                <span class="text-gray-800 col-span-3">2024年3月15日</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">参加部门：</span>
+                                <span class="text-gray-800 col-span-3">市场监管局、工商局、质监局</span>
+                            </div>
+                        </div>
+
+                        <!-- 代表信息部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">邀请代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">张某某（市人大代表、某企业负责人）、李某某（市人大代表、某商会会长）</span>
+                            </div>
+                        </div>
+
+                        <!-- 活动内容部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">活动内容：</span>
+                                <span class="text-gray-800 col-span-3">1. 市场监管局述职述法；2. 代表提问质询；3. 形成评议意见；4. 制定整改措施</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 召开"代表助企兴企"约请会页面 -->
+        <div id="business-action2" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('business-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">召开"代表助企兴企"约请会</h2>
+            </div>
+
+            <!-- 约请会列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">中小企业发展约请会</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 基本信息部分 -->
+                        <div class="pb-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">填报单位：</span>
+                                <span class="text-gray-800 col-span-3">市人大常委会经济工委</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">时间：</span>
+                                <span class="text-gray-800 col-span-3">2024年4月20日</span>
+                            </div>
+                        </div>
+
+                        <!-- 部门和代表信息 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">参加部门：</span>
+                                <span class="text-gray-800 col-span-3">发改委、工信局、金融办、税务局</span>
+                            </div>
+                        </div>
+
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">邀请代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">王某某（市人大代表、某科技公司CEO）、赵某某（市人大代表、某商会副会长）</span>
+                            </div>
+                        </div>
+
+                        <!-- 活动内容部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">活动内容：</span>
+                                <span class="text-gray-800 col-span-3">1. 中小企业代表反映融资难、税负重等问题；2. 相关部门现场回应；3.
+                                    形成问题清单和解决方案；4. 建立定期跟踪机制</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 市县联动、开展"人大+"执法检查活动页面 -->
+        <div id="business-action3" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('business-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">市县联动、开展"人大+"执法检查活动</h2>
+            </div>
+
+            <!-- 执法检查活动列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">优化营商环境条例执法检查</h3>
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">进行中</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 基本信息部分 -->
+                        <div class="pb-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">填报单位：</span>
+                                <span class="text-gray-800 col-span-3">市人大常委会法工委</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">活动时间：</span>
+                                <span class="text-gray-800 col-span-3">2024年5月10日-20日</span>
+                            </div>
+                        </div>
+
+                        <!-- 部门和代表信息 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">参加部门：</span>
+                                <span class="text-gray-800 col-span-3">发改委、市场监管局、行政审批局、各县区人大</span>
+                            </div>
+                        </div>
+
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">邀请代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">钱某某（市人大代表、某律师事务所主任）、孙某某（市人大代表、某企业董事长）</span>
+                            </div>
+                        </div>
+
+                        <!-- 活动内容部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">活动内容：</span>
+                                <span class="text-gray-800 col-span-3">1. 市县两级人大联动检查优化营商环境条例实施情况；2. 实地走访企业，了解条例落实情况；3.
+                                    召开座谈会，听取企业和部门意见；4. 形成执法检查报告</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 宣传推广页面 -->
+        <div id="business-action4" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('business-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">宣传推广</h2>
+            </div>
+
+            <!-- 典型事迹列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">张代表助力企业破解融资难题</h3>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 代表信息部分 -->
+                        <div class="pb-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">张某某（市人大代表、某银行行长）</span>
+                            </div>
+                        </div>
+
+                        <!-- 典型事迹部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">代表典型事迹：</span>
+                                <span
+                                    class="text-gray-800 col-span-3">张代表作为银行行长，针对中小企业融资难问题，牵头设计了"人大代表+银行+企业"对接机制，组织金融机构与30余家中小企业进行对接，帮助解决融资需求2亿元，推动建立中小企业信用评价体系，降低了企业融资门槛和成本。</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">王代表推动行政审批流程再造</h3>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 代表信息部分 -->
+                        <div class="pb-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">王某某（市人大代表、某科技公司CEO）</span>
+                            </div>
+                        </div>
+
+                        <!-- 典型事迹部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">代表典型事迹：</span>
+                                <span
+                                    class="text-gray-800 col-span-3">王代表通过调研发现企业办事环节多、耗时长的问题，提出了"一窗受理、并联审批"的建议，并参与设计了行政审批流程再造方案。该方案实施后，企业开办时间从原来的7个工作日缩短至2个工作日，企业满意度显著提升。</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 遍访代表深化拓展行动页面 -->
+        <div id="visit-action" class="page hidden">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-walking text-party-red mr-2"></i>
+                    遍访代表深化拓展行动
+                </h2>
+
+                <!-- 四个小点按钮 -->
+                <div class="grid grid-cols-1 gap-4">
+                    <button onclick="showPage('visit-action1')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">"双遍访"行动</h3>
+                                <p class="text-gray-600">记录遍访代表情况</p>
+                            </div>
+                            <i class="fas fa-users text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('visit-action2')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">代表列席常委会会议</h3>
+                                <p class="text-gray-600">记录代表列席常委会会议情况</p>
+                            </div>
+                            <i class="fas fa-university text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('visit-action3')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">代表进家入站参加活动</h3>
+                                <p class="text-gray-600">记录代表进家入站参加活动情况</p>
+                            </div>
+                            <i class="fas fa-home text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+
+                    <button onclick="showPage('visit-action4')"
+                        class="bg-white rounded-lg shadow-md p-6 text-left hover:shadow-lg transition-shadow border-l-4 border-party-red">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 mb-2">代表述职</h3>
+                                <p class="text-gray-600">记录代表述职情况</p>
+                            </div>
+                            <i class="fas fa-user-tie text-3xl text-party-red"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- "双遍访"行动页面 -->
+        <div id="visit-action1" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('visit-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">"双遍访"行动</h2>
+            </div>
+
+            <!-- 双遍访列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">社区代表遍访活动</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 基本信息部分 -->
+                        <div class="pb-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">填报单位：</span>
+                                <span class="text-gray-800 col-span-3">市人大常委会办公室</span>
+                            </div>
+                        </div>
+
+                        <!-- 代表信息部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">遍访代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">张某某（市人大代表、某社区主任）</span>
+                            </div>
+                        </div>
+
+                        <!-- 遍访时间部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">遍访时间：</span>
+                                <span class="text-gray-800 col-span-3">2024年4月15日</span>
+                            </div>
+                        </div>
+
+                        <!-- 遍访内容部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">遍访内容：</span>
+                                <span class="text-gray-800 col-span-3">走访社区居民，了解民生需求和社区建设情况</span>
+                            </div>
+                        </div>
+
+                        <!-- 代表提出建议部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">代表提出建议：</span>
+                                <span class="text-gray-800 col-span-3">1. 加强社区老旧小区改造；2. 增设社区养老服务设施；3. 优化社区公共空间</span>
+                            </div>
+                        </div>
+
+                        <!-- 为代表解决问题部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">为代表解决问题：</span>
+                                <span class="text-gray-800 col-span-3">1. 协调住建部门启动老旧小区改造项目；2. 引入社会资本建设社区养老服务中心；3.
+                                    优化社区公共空间布局</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 代表列席常委会会议页面 -->
+        <div id="visit-action2" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('visit-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">代表列席常委会会议</h2>
+            </div>
+
+            <!-- 列席会议列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">市九届人大第5次常委会会议</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 会议信息部分 -->
+                        <div class="pb-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">会议：</span>
+                                <span class="text-gray-800 col-span-3">市九届人大第5次常委会会议</span>
+                            </div>
+                        </div>
+
+                        <!-- 代表信息部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">邀请代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">李某某（市人大代表、某企业负责人）、王某某（市人大代表、某学校校长）</span>
+                            </div>
+                        </div>
+
+                        <!-- 专委会议题部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">专委会议题：</span>
+                                <span class="text-gray-800 col-span-3">《关于加强城市基础设施建设的决定（草案）》审议</span>
+                            </div>
+                        </div>
+
+                        <!-- 专委会邀请代表部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">专委会邀请代表：</span>
+                                <span class="text-gray-800 col-span-3">城建环资委员会邀请5名代表参加专题审议</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 代表进家入站参加活动页面 -->
+        <div id="visit-action3" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('visit-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">代表进家入站参加活动</h2>
+            </div>
+
+            <!-- 活动列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">东湖社区代表之家活动</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 基本信息部分 -->
+                        <div class="pb-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">填报单位：</span>
+                                <span class="text-gray-800 col-span-3">市人大常委会代表联络处</span>
+                            </div>
+                        </div>
+
+                        <!-- 家站名称部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">家站名称：</span>
+                                <span class="text-gray-800 col-span-3">东湖社区代表之家</span>
+                            </div>
+                        </div>
+
+                        <!-- 代表信息部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">赵某某（市人大代表、某医院院长）、钱某某（市人大代表、某企业负责人）</span>
+                            </div>
+                        </div>
+
+                        <!-- 时间部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">时间：</span>
+                                <span class="text-gray-800 col-span-3">2024年5月10日</span>
+                            </div>
+                        </div>
+
+                        <!-- 活动内容部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">活动内容：</span>
+                                <span class="text-gray-800 col-span-3">1. 代表接待选民，听取意见建议；2. 开展法律咨询服务；3. 组织健康义诊活动；4.
+                                    宣讲人大工作和法律知识</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 代表述职页面 -->
+        <div id="visit-action4" class="page hidden">
+            <div class="flex items-center mb-6">
+                <button onclick="showPage('visit-action')" class="mr-4 text-party-red hover:text-red-700">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800">代表述职</h2>
+            </div>
+
+            <!-- 述职列表 -->
+            <div class="space-y-4">
+                <div
+                    class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">张代表年度述职</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+
+                    <div class="space-y-4 divide-y divide-gray-100">
+                        <!-- 代表信息部分 -->
+                        <div class="pb-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">代表姓名、职务：</span>
+                                <span class="text-gray-800 col-span-3">张某某（市人大代表、某企业董事长）</span>
+                            </div>
+                        </div>
+
+                        <!-- 选举单位部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">选举单位：</span>
+                                <span class="text-gray-800 col-span-3">市第三选区</span>
+                            </div>
+                        </div>
+
+                        <!-- 时间部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">时间：</span>
+                                <span class="text-gray-800 col-span-3">2024年6月5日</span>
+                            </div>
+                        </div>
+
+                        <!-- 述职内容部分 -->
+                        <div class="py-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">述职内容：</span>
+                                <span class="text-gray-800 col-span-3">1. 参加人大会议和活动情况；2. 提出建议和议案情况；3. 联系选民和反映民意情况；4.
+                                    参与监督工作情况；5. 履职中存在的不足和改进措施</span>
+                            </div>
+                        </div>
+
+                        <!-- 为选民解决问题部分 -->
+                        <div class="pt-3">
+                            <div class="grid grid-cols-4 gap-2">
+                                <span class="text-gray-600 font-medium col-span-1">为选民解决问题：</span>
+                                <span class="text-gray-800 col-span-3">1. 协调解决社区道路维修问题；2. 推动增设社区卫生服务站；3. 帮助解决企业融资难题；4.
+                                    促进校企合作，解决就业问题</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 六个一批成果页面 -->
+        <div id="results" class="page hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-trophy text-party-red mr-2"></i>
+                    六个一批工作成果
+                </h2>
+            </div>
+
+            <!-- 移除搜索区域 -->
+
+            <!-- 成果列表 -->
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showResultDetail(1)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">1.提供一批助力高质量发展的招商引资线索</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">相关内容：</span>
+                        <span class="text-gray-800">（三）项目建设代表助力行动</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showResultDetail(2)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">2.推动一批高科技、高附加值的重大项目建设</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">相关内容：</span>
+                        <span class="text-gray-800">（三）项目建设代表助力行动</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showResultDetail(3)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">3.落实一批内容高质量、办理高效率的代表建议</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">相关内容：</span>
+                        <span class="text-gray-800">（四）建议办理代表助推行动</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showResultDetail(4)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">4.出台一批符合实际、推动发展的政策制度和地方性法规</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">相关内容：</span>
+                        <span class="text-gray-800">（五）营商环境代表聚力行动 1.开展述法评议活动</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showResultDetail(5)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">5.培养一批履职能力强、作用发挥好的人大代表</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">相关内容：</span>
+                        <span class="text-gray-800">（二）强企惠民代表争先行动 （五）营商环境代表聚力行动 4.宣传推广</span>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-party-red cursor-pointer hover:shadow-lg transition-shadow"
+                    onclick="showResultDetail(6)">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">6.探索一批体现民主、行之有效的代表履职机制</h3>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">已完成</span>
+                    </div>
+                    <div class="mt-3">
+                        <span class="text-gray-600">相关内容：</span>
+                        <span class="text-gray-800">（一）代表履职能力提升行动 3.探索完善四个机制</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 个人中心页面 -->
+        <div id="profile" class="page hidden">
+            <div class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-user text-party-red mr-2"></i>
+                    个人中心
+                </h2>
+
+                <!-- 个人信息卡片 -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face"
+                            alt="头像" class="w-16 h-16 rounded-full mr-4">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800">张代表</h3>
+                            <p class="text-gray-600">市代表人</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-gray-600">联系电话：</span>
+                            <span class="text-gray-800">138****8888</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">所属选区：</span>
+                            <span class="text-gray-800">第三选区</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">专业领域：</span>
+                            <span class="text-gray-800">教育</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-600">履职年限：</span>
+                            <span class="text-gray-800">5年</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 功能菜单 -->
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg shadow-md p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">功能设置</h3>
+                        <div class="space-y-3">
+                            <button
+                                class="w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                                <div class="flex items-center">
+                                    <i class="fas fa-edit text-party-red mr-3"></i>
+                                    <span class="text-gray-800">编辑个人信息</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </button>
+
+                            <button
+                                class="w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                                <div class="flex items-center">
+                                    <i class="fas fa-bell text-party-red mr-3"></i>
+                                    <span class="text-gray-800">消息通知</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </button>
+
+                            <button
+                                class="w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                                <div class="flex items-center">
+                                    <i class="fas fa-cog text-party-red mr-3"></i>
+                                    <span class="text-gray-800">系统设置</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </button>
+
+                            <button
+                                class="w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                                <div class="flex items-center">
+                                    <i class="fas fa-question-circle text-party-red mr-3"></i>
+                                    <span class="text-gray-800">帮助与反馈</span>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部导航栏 -->
+    <footer class="bg-white border-t border-gray-200 fixed bottom-0 w-full z-50">
+        <div class="flex justify-around py-2"> <!-- 将 py-3 改为 py-2 减小上下内边距 -->
+            <button onclick="showPage('training')" class="flex flex-col items-center text-party-red">
+                <i class="fas fa-home text-xl mb-0.5"></i> <!-- 将 mb-1 改为 mb-0.5 减小图标与文字间距 -->
+                <span class="text-xs">首页</span>
+            </button>
+            <button onclick="showProfile()" class="flex flex-col items-center text-gray-500">
+                <i class="fas fa-user text-xl mb-0.5"></i> <!-- 将 mb-1 改为 mb-0.5 减小图标与文字间距 -->
+                <span class="text-xs">我的</span>
+            </button>
+        </div>
+    </footer>
+
+    <!-- 底部操作按钮区域 -->
+    <div id="bottom-action-bar" class="fixed bottom-16 left-0 right-0 z-40">
+        <div id="training-actions" class="action-buttons">
+            <button onclick="showAddForm('training')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增培训
+            </button>
+        </div>
+        <div id="liaison-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('liaison')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增联络点
+            </button>
+        </div>
+        <div id="mechanism1-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('mechanism1')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增记录
+            </button>
+        </div>
+        <div id="mechanism2-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('mechanism2')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增记录
+            </button>
+        </div>
+        <div id="mechanism3-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('mechanism3')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增代表
+            </button>
+        </div>
+        <div id="mechanism4-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('mechanism4')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增记录
+            </button>
+        </div>
+        <div id="detail-actions" class="action-buttons hidden">
+            <div class="flex w-full space-x-0.5">
+                <button class="flex-1 bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                    <i class="fas fa-edit mr-2"></i>编辑
+                </button>
+                <button class="flex-1 bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                    <i class="fas fa-trash mr-2"></i>删除
+                </button>
+            </div>
+        </div>
+
+        <!-- 新增操作按钮 -->
+        <div id="enterprise-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('enterprise')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增记录
+            </button>
+        </div>
+        <div id="project-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('project')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增项目
+            </button>
+        </div>
+        <div id="proposal-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('proposal')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增记录
+            </button>
+        </div>
+        <div id="business-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('business')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增记录
+            </button>
+        </div>
+        <div id="visit-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('visit')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增记录
+            </button>
+        </div>
+        <div id="results-actions" class="action-buttons hidden">
+            <button onclick="showAddForm('results')"
+                class="w-full bg-party-red text-white py-3 rounded-lg hover:bg-red-700 transition-colors">
+                <i class="fas fa-plus mr-2"></i>新增成果
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    // 页面切换功能
+    function showPage(pageId) {
+        // 隐藏所有页面
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => page.classList.add('hidden'));
+
+        // 显示指定页面
+        const targetPage = document.getElementById(pageId);
+        if (targetPage) {
+            targetPage.classList.remove('hidden');
+        }
+
+        // 更新导航按钮状态
+        updateNavButtons(pageId);
+        updateBottomActions(pageId);
+
+        // 更新底部导航栏状态
+        updateFooterNav(pageId);
+    }
+
+    // 更新底部导航栏状态
+    function updateFooterNav(pageId) {
+        const homeBtn = document.querySelector('footer button:first-child');
+        const profileBtn = document.querySelector('footer button:last-child');
+
+        // 重置按钮状态
+        homeBtn.classList.remove('text-party-red');
+        homeBtn.classList.add('text-gray-500');
+        profileBtn.classList.remove('text-party-red');
+        profileBtn.classList.add('text-gray-500');
+
+        // 根据当前页面设置激活状态
+        if (pageId === 'training' || pageId === 'liaison' || pageId === 'mechanisms' ||
+            pageId === 'mechanism1' || pageId === 'mechanism2' || pageId === 'mechanism3' ||
+            pageId === 'mechanism4' || pageId === 'training-detail' || pageId === 'mechanism3-detail' ||
+            pageId === 'enterprise' || pageId === 'project' || pageId === 'proposal' ||
+            pageId === 'business' || pageId === 'visit' || pageId === 'results') {
+            homeBtn.classList.remove('text-gray-500');
+            homeBtn.classList.add('text-party-red');
+        } else if (pageId === 'profile') {
+            profileBtn.classList.remove('text-gray-500');
+            profileBtn.classList.add('text-party-red');
+        }
+    }
+
+    // 显示个人中心
+    function showProfile() {
+        showPage('profile');
+    }
+
+    // 更新顶部导航按钮状态
+    function updateNavButtons(activePageId) {
+        const navButtons = document.querySelectorAll('.nav-btn');
+        navButtons.forEach(btn => {
+            btn.classList.remove('bg-white', 'bg-opacity-20');
+            btn.classList.add('hover:bg-white', 'hover:bg-opacity-20');
+        });
+
+        // 根据页面ID设置对应按钮为激活状态
+        // 根据页面ID设置对应按钮为激活状态
+        const pageNavMap = {
+            'training': 0,
+            'training-detail': 0,
+            'liaison': 1,
+            'mechanisms': 2,
+            'mechanism1': 2,
+            'mechanism2': 2,
+            'mechanism3': 2,
+            'mechanism3-detail': 2,
+            'mechanism4': 2,
+            'enterprise': 3,
+            'project': 4,
+            'proposal': 5,
+            'business': 6,
+            'visit': 7,
+            'results': 8,
+            'proposal-action': 5,
+            'proposal-action1': 5,
+            'proposal-action2': 5,
+            'proposal-action3': 5,
+            'proposal-action4': 5,
+            'business-action': 6,
+            'business-action1': 6,
+            'business-action2': 6,
+            'business-action3': 6,
+            'business-action4': 6,
+            'visit-action': 7,
+            'visit-action1': 7,
+            'visit-action2': 7,
+            'visit-action3': 7,
+            'visit-action4': 7
+        };
+
+        const activeIndex = pageNavMap[activePageId];
+        if (activeIndex !== undefined && navButtons[activeIndex]) {
+            navButtons[activeIndex].classList.add('bg-white', 'bg-opacity-20');
+            navButtons[activeIndex].classList.remove('hover:bg-white', 'hover:bg-opacity-20');
+        }
+    }
+
+    // 更新底部操作按钮
+    function updateBottomActions(pageId) {
+        // 隐藏所有操作按钮组
+        const actionButtons = document.querySelectorAll('.action-buttons');
+        actionButtons.forEach(btn => btn.classList.add('hidden'));
+
+        // 根据页面ID显示对应的操作按钮
+        if (pageId === 'training') {
+            document.getElementById('training-actions').classList.remove('hidden');
+        } else if (pageId === 'liaison') {
+            document.getElementById('liaison-actions').classList.remove('hidden');
+        } else if (pageId === 'mechanism1') {
+            document.getElementById('mechanism1-actions').classList.remove('hidden');
+        } else if (pageId === 'mechanism2') {
+            document.getElementById('mechanism2-actions').classList.remove('hidden');
+        } else if (pageId === 'mechanism3') {
+            document.getElementById('mechanism3-actions').classList.remove('hidden');
+        } else if (pageId === 'mechanism4') {
+            document.getElementById('mechanism4-actions').classList.remove('hidden');
+        } else if (pageId === 'training-detail' || pageId === 'mechanism3-detail') {
+            document.getElementById('detail-actions').classList.remove('hidden');
+        } else if (pageId === 'enterprise') {
+            document.getElementById('enterprise-actions').classList.remove('hidden');
+        } else if (pageId === 'project') {
+            document.getElementById('project-actions').classList.remove('hidden');
+        } else if (pageId === 'proposal') {
+            document.getElementById('proposal-actions').classList.remove('hidden');
+        } else if (pageId === 'business') {
+            document.getElementById('business-actions').classList.remove('hidden');
+        } else if (pageId === 'visit') {
+            document.getElementById('visit-actions').classList.remove('hidden');
+        } else if (pageId === 'results') {
+            document.getElementById('results-actions').classList.remove('hidden');
+        }
+    }
+
+    // 显示培训详情
+    function showTrainingDetail(id) {
+        showPage('training-detail');
+    }
+
+    // 显示联络点详情
+    function showLiaisonDetail(id) {
+        // 这里可以根据ID加载具体的联络点详情
+        console.log('显示联络点详情:', id);
+    }
+
+    // 显示机制1详情
+    function showMechanism1Detail(id) {
+        // 这里可以根据ID加载具体的会商详情
+        console.log('显示会商详情:', id);
+    }
+
+    // 显示机制3详情
+    function showMechanism3Detail(id) {
+        showPage('mechanism3-detail');
+    }
+
+    // 显示企业详情
+    function showEnterpriseDetail(id) {
+        // 这里可以根据ID加载具体的企业详情
+        console.log('显示企业详情:', id);
+    }
+
+    // 显示项目详情
+    function showProjectDetail(id) {
+        // 这里可以根据ID加载具体的项目详情
+        console.log('显示项目详情:', id);
+    }
+
+    // 显示成果详情
+    function showResultDetail(id) {
+        // 根据ID跳转到对应的页面
+        switch(id) {
+            case 1:
+            case 2:
+                // 项目建设代表助力行动
+                showPage('project');
+                break;
+            case 3:
+                // 建议办理代表助推行动
+                showPage('proposal-action');
+                break;
+            case 4:
+                // 营商环境代表聚力行动 - 开展述法评议活动
+                showPage('business-action');
+                setTimeout(() => {
+                    showPage('business-action1');
+                }, 100);
+                break;
+            case 5:
+                // 强企惠民代表争先行动 和 营商环境代表聚力行动 - 宣传推广
+                showPage('business-action');
+                setTimeout(() => {
+                    showPage('business-action4');
+                }, 100);
+                break;
+            case 6:
+                // 代表履职能力提升行动 - 探索完善四个机制
+                showPage('mechanisms');
+                break;
+            default:
+                console.log('未找到对应的成果详情:', id);
+        }
+    }
+
+    // 显示建议办理子页面
+    function showProposalSubpage(subpageId) {
+        // 隐藏所有子页面
+        const subpages = document.querySelectorAll('.proposal-subpage');
+        subpages.forEach(page => page.classList.add('hidden'));
+
+        // 显示指定子页面
+        const targetSubpage = document.getElementById('proposal-' + subpageId);
+        if (targetSubpage) {
+            targetSubpage.classList.remove('hidden');
+        }
+
+        // 更新按钮状态
+        const buttons = document.querySelectorAll('#proposal .grid button');
+        buttons.forEach(btn => {
+            btn.classList.remove('bg-party-red', 'text-white');
+            btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+        });
+
+        // 设置当前按钮为激活状态
+        const activeButton = document.querySelector(`#proposal .grid button[onclick="showProposalSubpage('${subpageId}')"]`);
+        if (activeButton) {
+            activeButton.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+            activeButton.classList.add('bg-party-red', 'text-white');
+        }
+    }
+
+    // 显示营商环境子页面
+    function showBusinessSubpage(subpageId) {
+        // 隐藏所有子页面
+        const subpages = document.querySelectorAll('.business-subpage');
+        subpages.forEach(page => page.classList.add('hidden'));
+
+        // 显示指定子页面
+        const targetSubpage = document.getElementById('business-' + subpageId);
+        if (targetSubpage) {
+            targetSubpage.classList.remove('hidden');
+        }
+
+        // 更新按钮状态
+        const buttons = document.querySelectorAll('#business .grid button');
+        buttons.forEach(btn => {
+            btn.classList.remove('bg-party-red', 'text-white');
+            btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+        });
+
+        // 设置当前按钮为激活状态
+        const activeButton = document.querySelector(`#business .grid button[onclick="showBusinessSubpage('${subpageId}')"]`);
+        if (activeButton) {
+            activeButton.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+            activeButton.classList.add('bg-party-red', 'text-white');
+        }
+    }
+
+    // 显示遍访代表子页面
+    function showVisitSubpage(subpageId) {
+        // 隐藏所有子页面
+        const subpages = document.querySelectorAll('.visit-subpage');
+        subpages.forEach(page => page.classList.add('hidden'));
+
+        // 显示指定子页面
+        const targetSubpage = document.getElementById('visit-' + subpageId);
+        if (targetSubpage) {
+            targetSubpage.classList.remove('hidden');
+        }
+
+        // 更新按钮状态
+        const buttons = document.querySelectorAll('#visit .grid button');
+        buttons.forEach(btn => {
+            btn.classList.remove('bg-party-red', 'text-white');
+            btn.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+        });
+
+        // 设置当前按钮为激活状态
+        const activeButton = document.querySelector(`#visit .grid button[onclick="showVisitSubpage('${subpageId}')"]`);
+        if (activeButton) {
+            activeButton.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+            activeButton.classList.add('bg-party-red', 'text-white');
+        }
+    }
+
+    // 显示添加表单
+    function showAddForm(type) {
+        alert('显示' + type + '添加表单');
+    }
+
+    // 初始化页面
+    document.addEventListener('DOMContentLoaded', function () {
+        showPage('training');
+    });
+</script>
